@@ -18,8 +18,19 @@ const noTexts = [
 function moveNo() {
   noCount++;
 
-  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  const padding = 20; // keeps button inside screen
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  const x = Math.max(
+    padding,
+    Math.random() * maxX
+  );
+
+  const y = Math.max(
+    padding,
+    Math.random() * maxY
+  );
 
   noBtn.style.position = "fixed";
   noBtn.style.left = `${x}px`;
@@ -31,7 +42,6 @@ function moveNo() {
 
   yesBtn.style.transform = `scale(${1 + noCount * 0.12})`;
 }
-
 /* FULLY BLOCK NO BUTTON (DESKTOP + MOBILE) */
 function blockNo(e) {
   e.preventDefault();

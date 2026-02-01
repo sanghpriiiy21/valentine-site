@@ -147,3 +147,25 @@ button {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
+/* Burst particles */
+.burst {
+  position: fixed;
+  font-size: 2rem;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Animate polaroids on entry */
+.page.active .polaroid {
+  animation: popIn 0.8s ease forwards;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

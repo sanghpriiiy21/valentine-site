@@ -3,74 +3,64 @@ const noBtn = document.getElementById("noBtn");
 const page1 = document.getElementById("page1");
 const page2 = document.getElementById("page2");
 const music = document.getElementById("bgMusic");
-const heartsContainer = document.querySelector(".hearts");
 
 let noCount = 0;
 
 const noTexts = [
   "No 🙃",
-  "Are you sure? 😳",
-  "Really? 🥺",
-  "Think again 😭",
-  "No escape 😈",
-  "Just say YES 💘"
+  "Are you sure? 🥺",
+  "Really? 😳",
+  "Don’t break my heart 💔",
+  "You can’t say no 😈",
+  "Just say YES 💖"
 ];
 
-/* NO button escape */
-function moveNoButton() {
+/* NO button escapes */
+function moveNo() {
   noCount++;
 
-  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-
   noBtn.style.position = "absolute";
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
+  noBtn.style.left = Math.random() * 80 + "vw";
+  noBtn.style.top = Math.random() * 70 + "vh";
 
   if (noCount < noTexts.length) {
     noBtn.textContent = noTexts[noCount];
   }
 
-  noBtn.style.opacity = Math.max(0.2, 1 - noCount * 0.15);
-  yesBtn.style.transform = `scale(${1 + noCount * 0.1})`;
+  yesBtn.style.transform = `scale(${1 + noCount * 0.12})`;
 }
 
-/* Prevent NO click */
-["mouseenter", "mousedown", "touchstart"].forEach(event => {
-  noBtn.addEventListener(event, moveNoButton);
-});
+["mouseover", "mousedown", "touchstart"].forEach(e =>
+  noBtn.addEventListener(e, moveNo)
+);
 
 /* YES click */
 yesBtn.addEventListener("click", () => {
   page1.classList.remove("active");
   page2.classList.add("active");
-
   music.volume = 0.5;
-  music.play().catch(() => {});
-  heartExplosion();
+  music.play();
 });
 
-/* Floating hearts */
+/* Hearts generator */
+const hearts = document.querySelector(".hearts");
 setInterval(() => {
   const heart = document.createElement("span");
-  heart.textContent = "💖";
+  heart.innerHTML = Math.random() > 0.5 ? "💖" : "💗";
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 3 + 5) + "s";
-  heartsContainer.appendChild(heart);
+  heart.style.animationDuration = 5 + Math.random() * 4 + "s";
+  hearts.appendChild(heart);
 
-  setTimeout(() => heart.remove(), 8000);
-}, 300);
+  setTimeout(() => heart.remove(), 9000);
+}, 250);
 
-/* Heart explosion */
-function heartExplosion() {
-  for (let i = 0; i < 30; i++) {
-    const heart = document.createElement("div");
-    heart.className = "burst-heart";
-    heart.textContent = "💗";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = Math.random() * 100 + "vh";
-    document.body.appendChild(heart);
+/* Sparkles */
+const sparkles = document.querySelector(".sparkles");
+setInterval(() => {
+  const star = document.createElement("span");
+  star.innerHTML = "✨";
+  star.style.left = Math.random() * 100 + "vw";
+  sparkles.appendChild(star);
 
-    setTimeout(() => heart.remove(), 1400);
-  }
-}
+  setTimeout(() => star.remove(), 6000);
+}, 400);

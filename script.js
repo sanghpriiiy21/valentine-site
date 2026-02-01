@@ -11,79 +11,84 @@ const noTexts = [
   "Pleeaaase? 🧸",
   "Don’t do this to me... 💔",
   "I'm gonna cry! 😭",
-  "You're clicking the wrong one! 😈"
+  "Wrong button 😈"
 ];
 
-// Moving the NO button
+/* NO button escape */
 function moveNo() {
   noCount++;
-  
-  // Make it move randomly
+
   const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-  
+
   noBtn.style.position = "fixed";
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
 
-  // Update text
   if (noCount < noTexts.length) {
     noBtn.textContent = noTexts[noCount];
   }
 
-  // Make YES button bigger
-  const newScale = 1 + (noCount * 0.15);
-  yesBtn.style.transform = `scale(${newScale})`;
+  yesBtn.style.transform = `scale(${1 + noCount * 0.12})`;
 }
 
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("click", moveNo);
+["mouseover", "mousedown", "touchstart"].forEach(e =>
+  noBtn.addEventListener(e, moveNo)
+);
 
-// Celebration Burst Effect
+/* Celebration burst */
 function createBurst() {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 25; i++) {
     const particle = document.createElement("span");
     particle.innerHTML = ["🌸", "💖", "✨", "💗"][Math.floor(Math.random() * 4)];
-    particle.style.position = "fixed";
+    particle.className = "burst";
     particle.style.left = "50vw";
     particle.style.top = "50vh";
-    particle.style.fontSize = "2rem";
-    particle.style.zIndex = "1000";
-    
-    const destinationX = (Math.random() - 0.5) * 100;
-    const destinationY = (Math.random() - 0.5) * 100;
+
+    const dx = (Math.random() - 0.5) * 120;
+    const dy = (Math.random() - 0.5) * 120;
 
     particle.animate([
-      { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-      { transform: `translate(${destinationX}vw, ${destinationY}vh) scale(0)`, opacity: 0 }
-    ], {
-      duration: 1500,
-      easing: 'ease-out'
-    });
+      { transform: "translate(0,0) scale(1)", opacity: 1 },
+      { transform: `translate(${dx}vw, ${dy}vh) scale(0)`, opacity: 0 }
+    ], { duration: 1500, easing: "ease-out" });
 
     document.body.appendChild(particle);
     setTimeout(() => particle.remove(), 1500);
   }
 }
 
-// Clicking YES
+/* YES click */
 yesBtn.addEventListener("click", () => {
   createBurst();
   setTimeout(() => {
     page1.classList.remove("active");
     page2.classList.add("active");
-    music.volume = 0.3;
-    music.play().catch(() => console.log("Music needs interaction first"));
+    music.volume = 0.35;
+    music.play().catch(() => {});
   }, 300);
 });
 
-// Continuous Background Hearts
+/* Floating hearts */
 setInterval(() => {
   const heart = document.createElement("span");
   heart.innerHTML = Math.random() > 0.5 ? "💖" : "💗";
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-  heart.style.animationDuration = (Math.random() * 3 + 5) + "s";
+  heart.style.fontSize = Math.random() * 20 + 14 + "px";
+  heart.style.animationDuration = Math.random() * 3 + 6 + "s";
+  heart.style.animationTimingFunction = "ease-in-out";
+  heart.style.transform = `translateX(${Math.random() * 40 - 20}px)`;
   document.querySelector(".hearts-container").appendChild(heart);
-  setTimeout(() => heart.remove(), 8000);
-}, 300);
+  setTimeout(() => heart.remove(), 9000);
+}, 250);
+
+/* Sparkles ✨ (MISSING PART FIXED) */
+setInterval(() => {
+  const sparkle = document.createElement("span");
+  sparkle.innerHTML = "✨";
+  sparkle.style.left = Math.random() * 100 + "vw";
+  sparkle.style.fontSize = Math.random() * 10 + 10 + "px";
+  sparkle.style.animationDuration = Math.random() * 3 + 4 + "s";
+  document.querySelector(".sparkles-container").appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 7000);
+}, 500);

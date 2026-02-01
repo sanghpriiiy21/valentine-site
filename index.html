@@ -9,16 +9,20 @@
 </head>
 <body>
 
-  <!-- Floating Hearts Container -->
+  <!-- Animated Background Hearts -->
   <div class="hearts"></div>
+  <div class="sparkles"></div>
 
   <!-- PAGE 1 -->
   <section id="page1" class="page active">
-    <h1>Will you be my Valentine? 💕</h1>
+    <div class="card">
+      <h1>Will you be my Valentine? 💕</h1>
+      <p class="subtitle">I have something special for you ✨</p>
 
-    <div class="buttons">
-      <button id="yesBtn">Yes 💖</button>
-      <button id="noBtn">No 🙃</button>
+      <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 🙃</button>
+      </div>
     </div>
   </section>
 
@@ -27,14 +31,13 @@
     <h2>Thanks for being my Valentine this year 💘</h2>
 
     <div class="photo-wall">
-      <img src="images/pic1.jpg" alt="Memory 1">
-      <img src="images/pic2.jpg" alt="Memory 2">
-      <img src="images/pic3.jpg" alt="Memory 3">
+      <img src="images/pic1.jpg">
+      <img src="images/pic2.jpg">
+      <img src="images/pic3.jpg">
     </div>
   </section>
 
-  <!-- Background Music -->
-  <audio id="bgMusic" src="music/love.mp3" preload="auto" loop></audio>
+  <audio id="bgMusic" src="music/love.mp3" loop></audio>
 
   <script src="script.js"></script>
 </body>

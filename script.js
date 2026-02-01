@@ -32,10 +32,17 @@ function moveNo() {
   yesBtn.style.transform = `scale(${1 + noCount * 0.12})`;
 }
 
-["mouseover", "mousedown", "touchstart"].forEach(e =>
-  noBtn.addEventListener(e, moveNo)
-);
+/* FULLY BLOCK NO BUTTON (DESKTOP + MOBILE) */
+function blockNo(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  moveNo();
+  return false;
+}
 
+["mouseover", "mousedown", "touchstart", "touchend", "click"].forEach(event => {
+  noBtn.addEventListener(event, blockNo, { passive: false });
+});
 /* Celebration burst */
 function createBurst() {
   for (let i = 0; i < 25; i++) {
